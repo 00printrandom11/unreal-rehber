@@ -529,7 +529,6 @@ export const shortcutData = [
 ];
 
 export const nodeData = [
-    // --- EVENTS (KIRMIZI) ---
     { name: 'Event BeginPlay', type: 'event', description: 'Oyun başladığında veya bu aktör yaratıldığı an SADECE BİR KERE çalışan başlangıç noktasıdır.', tags: ['start', 'başla', 'ilk'], examples: ['Can barını fulle', 'Silahı ele al'] },
     { name: 'Event Tick', type: 'event', description: 'Oyunun her karesinde (Frame) sürekli tetiklenir (Saniyede 60+ kez).', tags: ['loop', 'sürekli', 'frame'], examples: ['Süre sayacı (Timer)', 'Homing füze takibi'] },
     { name: 'Event AnyDamage', type: 'event', description: 'Aktör hasar aldığında çalışır.', tags: ['hasar', 'can', 'damage'], examples: ['Canı azalt', 'Kırmızı ekran efekti'] },
@@ -549,7 +548,6 @@ export const nodeData = [
     { name: 'Event Unpossess', type: 'event', description: 'Controller bu Pawn\'ı bıraktığında çalışır.', tags: ['kontrol', 'bırak'], examples: ['AI moduna geç', 'Karakteri durdur'] },
     { name: 'Event LevelLoaded', type: 'event', description: 'Level tamamen yüklendiğinde çalışır.', tags: ['level', 'yükle'], examples: ['Ara sahneyi başlat', 'Müziği başlat'] },
 
-    // --- FLOW CONTROL (GRİ) ---
     { name: 'Branch (If)', type: 'flow', description: 'Koşul doğruysa True, yanlışsa False yolundan gider.', tags: ['eğer', 'if', 'kontrol'], examples: ['Mermi var mı?', 'Can > 0 mı?'] },
     { name: 'Sequence', type: 'flow', description: 'İşlemleri sırayla yapar (Önce 0, sonra 1...).', tags: ['sıra', 'dizi'], examples: ['1. Sesi çal, 2. Efekti oynat, 3. Hasar ver'] },
     { name: 'Delay', type: 'flow', description: 'Belirtilen süre kadar bekler.', tags: ['bekle', 'zaman'], examples: ['3 saniye bekle sonra patlat', 'Ateş ettikten sonra bekle'] },
@@ -567,7 +565,6 @@ export const nodeData = [
     { name: 'Select', type: 'flow', description: 'Koşula göre değer seçer.', tags: ['seç', 'değer'], examples: ['Erkek/Kadın mesh seçimi', 'Hızlı/Yavaş hız seçimi'] },
     { name: 'Is Valid', type: 'flow', description: 'Obje var mı yok mu kontrol eder.', tags: ['kontrol', 'null'], examples: ['Düşman yaşıyor mu?', 'Widget ekranda mı?'] },
 
-    // --- MATH (YEŞİL) ---
     { name: 'Add (+)', type: 'math', description: 'Toplama.', tags: ['artı', 'topla'], examples: ['Puan ekle', 'Can ekle'] },
     { name: 'Subtract (-)', type: 'math', description: 'Çıkarma.', tags: ['eksi', 'çıkar'], examples: ['Hasar ver', 'Mermi harca'] },
     { name: 'Multiply (*)', type: 'math', description: 'Çarpma.', tags: ['çarp', 'kat'], examples: ['2 kat hasar', 'Hızlandır'] },
@@ -613,7 +610,6 @@ export const nodeData = [
     { name: 'Max', type: 'math', description: 'İki sayıdan büyük olanı alır.', tags: ['büyük', 'en çok'], examples: ['En yüksek skoru bul'] },
     { name: 'Near Equal', type: 'math', description: 'Yaklaşık eşit mi? (Hata payı ile).', tags: ['yakın', 'benzer'], examples: ['Hedefe yeterince yaklaştı mı?'] },
 
-    // --- STRING (PEMBE) ---
     { name: 'Append', type: 'function', description: 'Yazıları birleştirir.', tags: ['birleştir', 'ekle'], examples: ['"Skor: " + Puan'] },
     { name: 'Format Text', type: 'function', description: 'Dinamik metin oluşturur.', tags: ['format', 'çeviri'], examples: ['"Merhaba {isim}, seviyen {lvl}"'] },
     { name: 'To String', type: 'function', description: 'Veriyi yazıya çevirir.', tags: ['çevir', 'dönüştür'], examples: ['Sayotı ekrana yazdır'] },
@@ -636,7 +632,6 @@ export const nodeData = [
     { name: 'Parse into Array', type: 'function', description: 'Yazıyı boşluklardan bölüp liste yapar.', tags: ['liste', 'ayır'], examples: ['"Elma Armut Muz" -> ["Elma", "Armut", "Muz"]'] },
     { name: 'Get Character As Number', type: 'function', description: 'Harfin sayısal (ASCII) kodunu verir.', tags: ['ascii', 'kod'], examples: ['Şifreleme yap'] },
 
-    // --- ARRAY & MAP (MAVİ/GRİ) ---
     { name: 'Make Array', type: 'function', description: 'Manuel liste oluşturur.', tags: ['oluştur'], examples: ['Silah listesi yap'] },
     { name: 'Add', type: 'function', description: 'Listeye ekler.', tags: ['ekle'], examples: ['Eşya topla'] },
     { name: 'Add Unique', type: 'function', description: 'Sadece listede yoksa ekler.', tags: ['ekle', 'benzersiz'], examples: ['Zaten varsa ekleme'] },
@@ -665,7 +660,6 @@ export const nodeData = [
     { name: 'Keys (Map)', type: 'function', description: 'Tüm anahtarları liste olarak verir.', tags: ['map', 'liste'], examples: ['Tüm ID\'leri listele'] },
     { name: 'Values (Map)', type: 'function', description: 'Tüm değerleri liste olarak verir.', tags: ['map', 'liste'], examples: ['Tüm eşyaları listele'] },
 
-    // --- ACTOR & COMPONENT MANAGEMENT (MAVİ) ---
     { name: 'Spawn Actor', type: 'function', description: 'Aktör yaratır.', tags: ['yarat', 'doğur'], examples: ['Mermi spawn et'] },
     { name: 'Destroy Actor', type: 'function', description: 'Aktörü siler.', tags: ['sil', 'yok et'], examples: ['Düşmanı sil'] },
     { name: 'Set Life Span', type: 'function', description: 'Ömür biçer. Süre dolunca otomatik silinir.', tags: ['ömür', 'süre', 'otomatik sil'], examples: ['Mermi 5 saniye sonra yok olsun', 'Loot 1 dakika kalsın'] },
@@ -694,7 +688,6 @@ export const nodeData = [
     { name: 'Get Component by Class', type: 'function', description: 'Parçasını bulur.', tags: ['bul', 'parça'], examples: ['Movement component\'i bul'] },
     { name: 'Destroy Component', type: 'function', description: 'Parçasını siler.', tags: ['sil', 'parça'], examples: ['Efekti sil'] },
 
-    // --- PHYSICS & MOVEMENT (MAVİ) ---
     { name: 'Add Force', type: 'function', description: 'Güç uygular (İter).', tags: ['it', 'güç'], examples: ['Rüzgar itmesi'] },
     { name: 'Add Impulse', type: 'function', description: 'Anlık darbe vurur.', tags: ['vur', 'tekme'], examples: ['Topa vur'] },
     { name: 'Set Simulate Physics', type: 'function', description: 'Fiziği açar.', tags: ['fizik'], examples: ['Ragdoll yap'] },
@@ -718,7 +711,6 @@ export const nodeData = [
     { name: 'Is Swimming', type: 'function', description: 'Yüzüyor mu?', tags: ['yüzme'], examples: ['Suda mı?'] },
     { name: 'Is Flying', type: 'function', description: 'Uçuyor mu?', tags: ['uçma'], examples: ['Jetpack açık mı?'] },
 
-    // --- AUDIO (TURUNCU) ---
     { name: 'Play Sound 2D', type: 'function', description: 'Sesi her yerden (arayüz sesi gibi) çalar.', tags: ['ses', 'çal', '2d'], examples: ['Buton sesi', 'Arka plan müziği'] },
     { name: 'Play Sound at Location', type: 'function', description: 'Sesi belirli bir noktada çalar.', tags: ['ses', 'konum', '3d'], examples: ['Patlama sesi', 'Ayak sesi'] },
     { name: 'Spawn Sound 2D', type: 'function', description: 'Sesi bir aktör gibi yaratır (Durdurulabilir, değiştirilebilir).', tags: ['ses', 'yarat', 'kontrol'], examples: ['Müziği başlat ve sonra durdur'] },
@@ -732,7 +724,6 @@ export const nodeData = [
     { name: 'Set Sound', type: 'function', description: 'Çalınacak ses dosyasını değiştirir.', tags: ['ses', 'değiş'], examples: ['Radyo kanalını değiştir'] },
     { name: 'Get Audio Component', type: 'function', description: 'Ses bileşenine erişir.', tags: ['ses', 'bileşen'], examples: ['Aktörün sesine eriş'] },
 
-    // --- AI & NAVIGATION (YEŞİL) ---
     { name: 'AI Move To', type: 'function', description: 'Yapay zekayı bir yere veya bir aktöre yürütür.', tags: ['ai', 'git', 'yürü'], examples: ['Düşmanı oyuncuya gönder'] },
     { name: 'Simple Move to Location', type: 'function', description: 'Basit yürüme komutu.', tags: ['ai', 'git'], examples: ['Tıklnan yere git'] },
     { name: 'Stop Movement', type: 'function', description: 'Yürümeyi durdurur.', tags: ['ai', 'dur'], examples: ['Vurunca dursun'] },
@@ -745,7 +736,6 @@ export const nodeData = [
     { name: 'Pose Awake', type: 'function', description: 'AI\'yı uyandırır.', tags: ['ai', 'uyan'], examples: ['Görünce harekete geç'] },
     { name: 'Run Behavior Tree', type: 'function', description: 'AI davranış ağacını başlatır.', tags: ['ai', 'beyin'], examples: ['Zekayı aktif et'] },
 
-    // --- USER INTERFACE (MAVİ) ---
     { name: 'Create Widget', type: 'function', description: 'Arayüz oluşturur.', tags: ['ui', 'yarat'], examples: ['Menü yarat'] },
     { name: 'Add to Viewport', type: 'function', description: 'Arayüzü ekrana basar.', tags: ['ui', 'göster'], examples: ['Menüyü göster'] },
     { name: 'Remove from Parent', type: 'function', description: 'Arayüzü kapatır/siler.', tags: ['ui', 'kapat'], examples: ['Menüden çık'] },
@@ -758,7 +748,6 @@ export const nodeData = [
     { name: 'Set Percent', type: 'function', description: 'Barın doluluk oranını ayarlar (0-1).', tags: ['ui', 'bar'], examples: ['Can barını güncelle'] },
     { name: 'Play Animation (Widget)', type: 'function', description: 'Arayüz animasyonunu oynatır.', tags: ['ui', 'animasyon'], examples: ['Menü açılış efekti'] },
 
-    // --- LEVEL & SYSTEM (GRİ) ---
     { name: 'Open Level', type: 'function', description: 'Level değiştirir.', tags: ['level', 'aç'], examples: ['Diğer bölüme geç'] },
     { name: 'Get Current Level Name', type: 'function', description: 'Level ismini verir.', tags: ['level', 'isim'], examples: ['Hangi bölüm?'] },
     { name: 'Quit Game', type: 'function', description: 'Oyundan atar.', tags: ['kapat', 'çıkış'], examples: ['Masaüstüne dön'] },
@@ -770,7 +759,6 @@ export const nodeData = [
     { name: 'Load Stream Level', type: 'function', description: 'Arka planda level yükler (Loading süresiz).', tags: ['level', 'stream'], examples: ['Büyük haritada yeni bölgeyi yükle'] },
     { name: 'Unload Stream Level', type: 'function', description: 'Levelı hafızadan atar.', tags: ['level', 'sil'], examples: ['Geride kalan bölgeyi sil'] },
 
-    // --- NETWORKING & REPLICATION (MOR) ---
     { name: 'Switch Has Authority', type: 'network', description: 'Sunucu mu İstemci mi ayrımı yapar.', tags: ['server', 'yetki'], examples: ['Önemli işlemleri sunucuda yap'] },
     { name: 'Run on Server', type: 'network', description: 'Sunucuya sinyal gönderir.', tags: ['rpc', 'sunucu'], examples: ['Vurma işlemini bildir'] },
     { name: 'Multicast', type: 'network', description: 'Herkese sinyal gönderir.', tags: ['rpc', 'herkes'], examples: ['Efektleri herkese göster'] },
@@ -781,7 +769,6 @@ export const nodeData = [
     { name: 'Save Game', type: 'network', description: 'Kaydeder.', tags: ['save'], examples: ['İlerlemeyi sakla'] },
     { name: 'Load Game', type: 'network', description: 'Yükler.', tags: ['load'], examples: ['Kayıttan dön'] },
 
-    // --- INPUT (KIRMIZI) ---
     { name: 'Get Mouse Position', type: 'function', description: 'Mouse koordinatını verir.', tags: ['mouse', 'yer'], examples: ['Mouse nerede?'] },
     { name: 'Set Mouse Position', type: 'function', description: 'Mouse\'u ışınlar.', tags: ['mouse', 'taşı'], examples: ['Ortaya sabitle'] },
     { name: 'Show Mouse Cursor', type: 'function', description: 'İmleci gösterir.', tags: ['mouse', 'görünür'], examples: ['Menüde göster'] },
@@ -791,7 +778,6 @@ export const nodeData = [
     { name: 'Enable Input', type: 'function', description: 'Kontrolü açar.', tags: ['input', 'aç'], examples: ['Giriş izni ver'] },
     { name: 'Disable Input', type: 'function', description: 'Kontrolü kapatır.', tags: ['input', 'kapa'], examples: ['Karakteri dondur'] },
 
-    // --- MATERIAL & APPEARANCE (TURKUAZ) ---
     { name: 'Create Dynamic Material Instance', type: 'function', description: 'Kod ile değiştirilebilir bir materyal kopyası yaratır.', tags: ['materyal', 'renk'], examples: ['Rengi değişen zırh yap'] },
     { name: 'Set Scalar Parameter Value', type: 'function', description: 'Materyaldeki bir sayı değerini (Parlaklık, Opaklık) değiştirir.', tags: ['materyal', 'parametre'], examples: ['Kalkanın parlaklığını arttır'] },
     { name: 'Set Vector Parameter Value', type: 'function', description: 'Materyaldeki bir renk değerini değiştirir.', tags: ['materyal', 'renk'], examples: ['Arabanın rengini değiştir'] },
@@ -799,7 +785,6 @@ export const nodeData = [
     { name: 'Get Material', type: 'function', description: 'Aktörün üzerindeki materyali alır.', tags: ['materyal', 'al'], examples: ['Hangi boya var?'] },
     { name: 'Set Material', type: 'function', description: 'Aktörün materyalini değiştirir.', tags: ['materyal', 'değiş'], examples: ['Kıyafet değiştir'] },
 
-    // --- TIME & TIMERS (GRİ) ---
     { name: 'Get World Delta Seconds', type: 'function', description: 'Son kare (frame) ile şimdiki kare arasında geçen süreyi verir. Hız hesaplarında şarttır.', tags: ['süre', 'delta'], examples: ['Hızı sabit tut (Speed * DeltaTime)'] },
     { name: 'Set Timer by Function Name', type: 'function', description: 'Bir fonksiyonu süreyle çalıştırır.', tags: ['zaman', 'timer'], examples: ['5 saniye sonra "Patla" fonksiyonunu çağır'] },
     { name: 'Clear Timer by Handle', type: 'function', description: 'Zamanlayıcıyı iptal eder.', tags: ['iptal', 'timer'], examples: ['Bomba imha edilirse sayacı durdur'] },
@@ -809,7 +794,6 @@ export const nodeData = [
     { name: 'Get Timer Remaining Time', type: 'function', description: 'Kaç saniye kaldı?', tags: ['kalan', 'süre'], examples: ['Geri sayımı ekranda göster'] },
     { name: 'Get Timer Elapsed Time', type: 'function', description: 'Kaç saniye geçti?', tags: ['geçen', 'süre'], examples: ['Ne kadar süredir yanıyor?'] },
 
-    // --- MATH: ROTATION & TRANSFORM (YEŞİL) ---
     { name: 'Make Rotator', type: 'math', description: 'Sayılar ile açı oluşturur (Roll, Pitch, Yaw).', tags: ['oluştur', 'açı'], examples: ['X ekseninde 90 derece dön'] },
     { name: 'Break Rotator', type: 'math', description: 'Açıyı sayılarına ayırır.', tags: ['ayır', 'açı'], examples: ['Sadece Yaw (Yön) değerini al'] },
     { name: 'Combine Rotators', type: 'math', description: 'İki açıyı toplar.', tags: ['topla', 'açı'], examples: ['Karakterin açısına silahın açısını ekle'] },
@@ -820,7 +804,6 @@ export const nodeData = [
     { name: 'Make Transform', type: 'math', description: 'Konum, Dönüş ve Boyut\'tan Transform yapar.', tags: ['oluştur'], examples: ['Spawn noktası belirle'] },
     { name: 'Break Transform', type: 'math', description: 'Transformu parçalar.', tags: ['parçala'], examples: ['Sadece konumu al'] },
 
-    // --- CHARACTER & ANIMATION (MAVİ) ---
     { name: 'Play Animation', type: 'function', description: 'Bir animasyon klibini zorla oynatır (Montage değil).', tags: ['animasyon', 'oynat'], examples: ['El sallama'] },
     { name: 'Stop Animation', type: 'function', description: 'Animasyonu durdurur.', tags: ['animasyon', 'dur'], examples: ['Donup kal'] },
     { name: 'Play Montage', type: 'function', description: 'Gelişmiş animasyon (Montage) oynatır.', tags: ['montage', 'saldırı'], examples: ['Kılıç kombosu'] },
@@ -831,7 +814,6 @@ export const nodeData = [
     { name: 'Is Playing Montage', type: 'function', description: 'Şu an bir montaj oynuyor mu?', tags: ['kontrol', 'anim'], examples: ['Saldırırken tekrar saldıramasın'] },
     { name: 'Set Morph Target', type: 'function', description: 'Yüz ifadesi gibi şekil anahtarlarını değiştirir.', tags: ['yüz', 'ifade'], examples: ['Gülümse (Smile=1.0)'] },
 
-    // --- HUD & UMG EXTENDED (MAVİ) ---
     { name: 'Get Viewport Size', type: 'function', description: 'Ekranın piksel boyutunu verir (1920x1080 vb.).', tags: ['ekran', 'boyut'], examples: ['Nişangahı tam ortaya koy'] },
     { name: 'Project World Location to Widget', type: 'function', description: 'Dünyadaki bir noktanın ekrandaki (2D) yerini bulur.', tags: ['ekran', 'konum'], examples: ['Düşmanın kafasında can barı göster'] },
     { name: 'Deproject Screen to World', type: 'function', description: 'Ekrandaki bir tıklamanın dünyadaki yerini bulur.', tags: ['dünya', 'tık'], examples: ['Mouse ile yere tıkladım, orası neresi?'] },
@@ -839,7 +821,6 @@ export const nodeData = [
     { name: 'Get All Widgets of Class', type: 'function', description: 'Ekrandaki tüm belirli widgetları bulur.', tags: ['bul', 'widget'], examples: ['Tüm can barlarını kapat'] },
     { name: 'Remove All Widgets', type: 'function', description: 'Ekrandaki her şeyi temizler.', tags: ['temizle', 'ui'], examples: ['Bölüm sonu'] },
 
-    // --- UTILITIES & SYSTEM (GRİ) ---
     { name: 'Get System Time', type: 'function', description: 'Bilgisayarın saatini verir.', tags: ['saat', 'sistem'], examples: ['Gerçek saati göster'] },
     { name: 'Get Platform Name', type: 'function', description: 'Hangi cihazda çalışıyor? (Windows, Android, PS5).', tags: ['cihaz', 'platform'], examples: ['Mobildeyse grafikleri düşür'] },
     { name: 'Delay Frame', type: 'flow', description: 'Bir kare (frame) bekler.', tags: ['bekle', 'frame'], examples: ['Yükleme hatasını önlemek için bekle'] },
@@ -850,7 +831,6 @@ export const nodeData = [
     { name: 'Get Game User Settings', type: 'function', description: 'Grafik ayarlarına erişir.', tags: ['ayar', 'grafik'], examples: ['Kaliteyi değiştir'] },
     { name: 'Apply Settings', type: 'function', description: 'Grafik ayarlarını kaydeder ve uygular.', tags: ['kaydet', 'ayar'], examples: ['"Uygula" butonuna basınca'] },
 
-    // --- CONVERSION (GRİ/YEŞİL) ---
     { name: 'Byte to Int', type: 'math', description: 'Byte -> Tamsayı.', tags: ['çevir'], examples: ['Veri paketi okurken çevir'] },
     { name: 'Int to Byte', type: 'math', description: 'Tamsayı -> Byte.', tags: ['çevir'], examples: ['Veriyi sıkıştırırken (0-255)'] },
     { name: 'Int to Float', type: 'math', description: 'Tamsayı -> Ondalıklı.', tags: ['çevir'], examples: ['Mermi sayısını bara (%100) oranla'] },
@@ -864,7 +844,6 @@ export const nodeData = [
     { name: 'Transform to String', type: 'function', description: 'Transform -> Yazı.', tags: ['çevir'], examples: ['Debug için tüm bilgiyi gör'] },
     { name: 'Bool to String', type: 'function', description: 'True/False -> "True"/"False".', tags: ['çevir'], examples: ['Durumu loga yaz'] },
 
-    // --- ADVANCED MATH (YEŞİL) ---
     { name: 'Select Int', type: 'math', description: 'Koşula göre sayı seçer.', tags: ['seç', 'sayı'], examples: ['Hızlıysa 2, yavaşsa 1'] },
     { name: 'Select Float', type: 'math', description: 'Koşula göre ondalıklı seçer.', tags: ['seç', 'float'], examples: ['Canlıysa 1.0, ölüyse 0.0'] },
     { name: 'Select Vector', type: 'math', description: 'Koşula göre vektör seçer.', tags: ['seç', 'vektör'], examples: ['Kırmızı takımın doğuş noktası'] },
@@ -884,7 +863,6 @@ export const nodeData = [
     { name: 'Is Nearly Zero', type: 'math', description: 'Sıfıra çok yakın mı?', tags: ['kontrol', 'sıfır'], examples: ['Hareket durdu mu?'] },
     { name: 'Is Power of Two', type: 'math', description: 'İkinin kuvveti mi? (2, 4, 8, 16...).', tags: ['kontrol', 'matematik'], examples: ['Doku boyutu uygun mu?'] },
 
-    // --- FLOW CONTROL ADVANCED (GRİ) ---
     { name: 'Switch on EInputEvent', type: 'flow', description: 'Tuş olayına göre ayırır (Pressed, Released).', tags: ['tuş', 'durum'], examples: ['Tuşa basınca ateş et, bırakınca dur'] },
     { name: 'Switch on EMovementMode', type: 'flow', description: 'Hareket moduna göre ayırır (Yürüyor, Uçuyor, Yüzüyor).', tags: ['hareket', 'durum'], examples: ['Yüzüyorsa nefes harca'] },
     { name: 'Switch on EPhysBodyOp', type: 'flow', description: 'Fizik olayına göre ayırır.', tags: ['fizik', 'durum'], examples: ['Çarpışma olursa ses çal'] },
@@ -892,7 +870,6 @@ export const nodeData = [
     { name: 'While Loop with Break', type: 'flow', description: 'Durdurulabilir sonsuz döngü.', tags: ['döngü', 'dur'], examples: ['Hedefe ulaşana kadar yürümeye devam et'] },
     { name: 'Sequence (Multi)', type: 'flow', description: 'Çoklu sıralama (Sınırsız pin eklenebilir).', tags: ['sıra'], examples: ['1. Müzik çal, 2. Efekt ver, 3. Puan ver...'] },
 
-    // --- GAMEPLAY UTILITIES (MAVİ) ---
     { name: 'Spawn Decal at Location', type: 'function', description: 'Duvara resim/iz yapıştırır (Mermi izi).', tags: ['decal', 'iz'], examples: ['Mermi deliği'] },
     { name: 'Spawn Decal Attached', type: 'function', description: 'Hareketli objeye iz yapıştırır.', tags: ['decal', 'iz'], examples: ['Karakterin omzuna kan lekesi'] },
     { name: 'Spawn Emitter at Location', type: 'function', description: 'Parrticle efekti yaratır (Patlama).', tags: ['efekt', 'patlama'], examples: ['Bomba patlaması'] },
@@ -905,8 +882,6 @@ export const nodeData = [
     { name: 'Draw Debug String', type: 'function', description: '3D uzayda yazı yazar.', tags: ['debug', 'yazı'], examples: ['Karakterin tepesinde canını yaz'] },
     { name: 'Print Text', type: 'function', description: 'Ekrana Text yazar.', tags: ['log', 'yazı'] },
 
-    // --- BATCH 2: LIGHTING, CAMERA, SPLINE ... ---
-    // --- LIGHTING & RENDERING (TURUNCU) ---
     { name: 'Set Light Color', type: 'function', description: 'Işığın rengini değiştirir.', tags: ['ışık', 'renk'], examples: ['Alarm çalınca kırmızı yap'] },
     { name: 'Set Intensity', type: 'function', description: 'Işığın parlaklığını ayarlar.', tags: ['ışık', 'parlaklık'], examples: ['Elektrik gidince karart'] },
     { name: 'Set Attenuation Radius', type: 'function', description: 'Işığın etki alanını ayarlar.', tags: ['ışık', 'menzil'], examples: ['Meşalenin aydınlattığı alanı büyüt'] },
@@ -916,7 +891,6 @@ export const nodeData = [
     { name: 'Set Temperature', type: 'function', description: 'Kelvin cinsinden renk sıcaklığı.', tags: ['ışık', 'renk'], examples: ['Gün batımı sarısı (4500K)'] },
     { name: 'Toggle Visibility', type: 'function', description: 'Görünürlüğü tersine çevirir.', tags: ['gizle', 'göster'], examples: ['Işığı aç/kapa'] },
 
-    // --- CAMERA & CINEMATICS (MAVİ) ---
     { name: 'Set Field Of View (FOV)', type: 'function', description: 'Kamera açısını genişletir/daraltır.', tags: ['kamera', 'açı'], examples: ['Dürbünle bakınca daralt'] },
     { name: 'Client Start Camera Shake', type: 'function', description: 'Ekranı sallar (Patlama etkisi).', tags: ['kamera', 'salla'], examples: ['Bomba patlayınca'] },
     { name: 'Play World Camera Shake', type: 'function', description: 'Dünyada bir noktada sarsıntı yaratır.', tags: ['kamera', 'sarsıntı'], examples: ['Dev yürüyünce'] },
@@ -928,7 +902,6 @@ export const nodeData = [
     { name: 'Pause (Sequence)', type: 'function', description: 'Sinematiği dondurur.', tags: ['durdur'] },
     { name: 'Stop (Sequence)', type: 'function', description: 'Sinematiği bitirir.', tags: ['bitir'] },
 
-    // --- SPLINE & PATHS (YEŞİL) ---
     { name: 'Add Spline Point', type: 'function', description: 'Yola yeni bir nokta ekler.', tags: ['yol', 'spline'], examples: ['Karakterin rotasını uzat'] },
     { name: 'Clear Spline Points', type: 'function', description: 'Tüm noktaları siler.', tags: ['yol', 'sil'], examples: ['Rotayı sıfırla'] },
     { name: 'Get Location at Distance Along Spline', type: 'function', description: 'Yol üzerindeki belirli bir mesafedeki konumu verir.', tags: ['yol', 'konum'], examples: ['Yolun %50sinde neresi var?'] },
@@ -937,7 +910,6 @@ export const nodeData = [
     { name: 'Get Number of Spline Points', type: 'function', description: 'Kaç nokta var?', tags: ['sayı', 'nokta'] },
     { name: 'Set Spline Point Type', type: 'function', description: 'Noktanın yumuşaklığını (Curve) ayarlar.', tags: ['yol', 'mekanik'], examples: ['Keskin dönüş yap'] },
 
-    // --- AI BLACKBOARD ADVANCED (GRİ) ---
     { name: 'Get Blackboard Value as Bool', type: 'function', description: 'AI hafızasındaki Switch\'i okur.', tags: ['ai', 'veri'], examples: ['Düşman beni gördü mü?'] },
     { name: 'Get Blackboard Value as Int', type: 'function', description: 'AI hafızasındaki sayıyı okur.', tags: ['ai', 'veri'] },
     { name: 'Get Blackboard Value as Float', type: 'function', description: 'AI hafızasındaki ondalıklıyı okur.', tags: ['ai', 'veri'] },
@@ -952,13 +924,11 @@ export const nodeData = [
     { name: 'Set Blackboard Value as Enum', type: 'function', description: 'AI hafızasına durum (Enum) kaydeder.', tags: ['ai', 'yaz'], examples: ['Durum: Saldırı'] },
     { name: 'Clear Blackboard Value', type: 'function', description: 'Hafızayı siler.', tags: ['ai', 'sil'], examples: ['Hedefi unut'] },
 
-    // --- PHYSICS CONSTRAINTS (TURKUAZ) ---
     { name: 'Set Angular Drive Mode', type: 'function', description: 'Dönme motorunu ayarlar.', tags: ['fizik', 'motor'], examples: ['Tekerleğin dönüş gücünü ayarla'] },
     { name: 'Set Linear Drive Params', type: 'function', description: 'İtme kuvvetini ayarlar.', tags: ['fizik', 'motor'] },
     { name: 'Break Constraint', type: 'function', description: 'Bağlantıyı koparır.', tags: ['kopar', 'bağ'], examples: ['Zinciri kır'] },
     { name: 'Set Constrained Components', type: 'function', description: 'Hangi parçaların bağlanacağını seçer.', tags: ['bağla'], examples: ['Römorku arabaya bağla'] },
 
-    // --- UTILITIES EXTENDED (GRİ) ---
     { name: 'Get Resolution Scale Information', type: 'function', description: 'Ekran çözünürlük ölçeğini alır.', tags: ['ekran', 'ayar'], examples: ['Şu anki render kalitesi kaç?'] },
     { name: 'Set Resolution Scale', type: 'function', description: 'Çözünürlük ölçeğini değiştirir (Performans için).', tags: ['ekran', 'performans'], examples: ['%50 render scale'] },
     { name: 'Get Viewport Scale', type: 'function', description: 'Arayüz ölçeğini alır.', tags: ['hud', 'boyut'], examples: ['UI ne kadar büyük görünüyor?'] },
@@ -969,7 +939,6 @@ export const nodeData = [
     { name: 'Text to Upper', type: 'function', description: 'Text\'i büyütür.', tags: ['yazı', 'case'] },
     { name: 'Text to Lower', type: 'function', description: 'Text\'i küçültür.', tags: ['yazı', 'case'] },
 
-    // --- TRANSFORM & VECTORS EXTRA (YEŞİL) ---
     { name: 'Get Forward Vector (Rotator)', type: 'math', description: 'Açının önünü bulur.', tags: ['yön', 'açı'] },
     { name: 'Get Right Vector (Rotator)', type: 'math', description: 'Açının sağını bulur.', tags: ['yön', 'açı'] },
     { name: 'Get Up Vector (Rotator)', type: 'math', description: 'Açının yukarısını bulur.', tags: ['yön', 'açı'] },
@@ -979,33 +948,28 @@ export const nodeData = [
     { name: 'Random Unit Vector', type: 'math', description: 'Rastgele bir yön (uzunluğu 1 olan) verir.', tags: ['rastgele', 'yön'], examples: ['Rastgele saçılma'] },
     { name: 'Random Unit Vector in Cone', type: 'math', description: 'Koni içinde rastgele yön verir.', tags: ['rastgele', 'koni'], examples: ['Mermi saçılması (Spread)'] },
 
-    // --- GENERAL LOGIC (BEYAZ) ---
     { name: 'Select Object', type: 'flow', description: 'Koşula göre obje seçer.', tags: ['seç', 'obje'], examples: ['Dostsa bu silahı, düşmansa şu silahı ver'] },
     { name: 'Select Class', type: 'flow', description: 'Koşula göre sınıf seçer.', tags: ['seç', 'sınıf'], examples: ['Zorbaysa Boss, kolaysa Minion doğur'] },
     { name: 'Switch on Name', type: 'flow', description: 'İsme göre ayırır.', tags: ['seç', 'isim'], examples: ['Bone ismine göre efekt ver'] },
     { name: 'Switch on String (Case Sensitive)', type: 'flow', description: 'Büyük/Küçük harfe duyarlı ayrım.', tags: ['seç', 'hassas'], examples: ['Şifre kontrolü ("Admin" != "admin")'] },
 
-    // --- COLLISION EXTRA (MAVİ) ---
     { name: 'Ignore Actor when Moving', type: 'function', description: 'Hareket ederken bu aktöre çarpma.', tags: ['çarpma', 'yoksay'], examples: ['Takım arkadaşının içinden geç'] },
     { name: 'Ignore Component when Moving', type: 'function', description: 'Bu parçaya çarpma.', tags: ['çarpma', 'yoksay'] },
     { name: 'Set Collision Response to Channel', type: 'function', description: 'Belirli bir kanala (Pawn, Wall) tepkiyi değiştirir.', tags: ['kollizyon', 'kanal'], examples: ['Duvarlardan geç'] },
     { name: 'Set Collision Response to All Channels', type: 'function', description: 'Toplu ayar yapar.', tags: ['kollizyon', 'toplu'] },
     { name: 'Set Collision Object Type', type: 'function', description: 'Objenin türünü (Pawn, Vehicle) değiştirir.', tags: ['tür', 'fizik'] },
 
-    // --- LIST & ARRAY EXTRA (YEŞİL) ---
     { name: 'Reverse', type: 'function', description: 'Listeyi ters çevirir.', tags: ['ters', 'liste'], examples: ['Sondan başa git'] },
     { name: 'Set Array Elem', type: 'function', description: 'Elemanı değiştirir.', tags: ['değiştir'], examples: ['Güncelle'] },
     { name: 'Swap Array Elements', type: 'function', description: 'İki elemanın yerini değiştirir.', tags: ['takas'], examples: ['Envanterde yer değiş'] },
     { name: 'Append Array', type: 'function', description: 'Listeleri birleştirir.', tags: ['birleştir'], examples: ['Düşman listesine yenileri ekle'] },
 
-    // --- PAPER 2D (MOR) ---
     { name: 'Get Sprite', type: 'function', description: '2D resmini alır.', tags: ['2d', 'sprite'], examples: ['Hangi resim görünüyor?'] },
     { name: 'Set Sprite', type: 'function', description: '2D resmini değiştirir.', tags: ['2d', 'değiş'], examples: ['Yürüyüş animasyonunu koy'] },
     { name: 'Set Flipbook', type: 'function', description: '2D animasyonunu değiştirir.', tags: ['2d', 'anim'], examples: ['Saldırı animasyonu'] },
     { name: 'Get Flipbook', type: 'function', description: 'Hangi animasyon oynuyor?', tags: ['2d', 'kontrol'], examples: ['Şu an zıplıyor mu?'] },
     { name: 'Set Sprite Color', type: 'function', description: 'Sprite rengini boyar.', tags: ['2d', 'renk'], examples: ['Hasar alınca kızar'] },
 
-    // --- FINAL BATCH: MATH & UTILS ---
     { name: 'Ceil to Int', type: 'math', description: 'Yukarı yuvarla (Tamsayıya).', tags: ['yuvarla', 'int'], examples: ['4.1 -> 5', 'Puanı yukarı tamamla'] },
     { name: 'Floor to Int', type: 'math', description: 'Aşağı yuvarla (Tamsayıya).', tags: ['yuvarla', 'int'], examples: ['4.9 -> 4', 'Küsüratı at'] },
     { name: 'Round to Int', type: 'math', description: 'En yakına yuvarla (Tamsayıya).', tags: ['yuvarla', 'int'], examples: ['4.4 -> 4', '4.6 -> 5'] },
@@ -1017,7 +981,6 @@ export const nodeData = [
     { name: 'Make Vector 2D', type: 'math', description: 'X, Y yapar (2 Boyutlu).', tags: ['vektör', '2d'], examples: ['UI konumu için'] },
     { name: 'Break Vector 2D', type: 'math', description: 'X, Y ayırır (2 Boyutlu).', tags: ['vektör', '2d'], examples: ['Ekran koordinatlarını oku'] },
 
-    // --- GEOMETRY OVERLAPS (MAVİ) ---
     { name: 'Sphere Overlap Actors', type: 'function', description: 'Küre içindeki aktörleri bulur.', tags: ['bul', 'alan'], examples: ['Patlama alanındakileri bul'] },
     { name: 'Sphere Overlap Components', type: 'function', description: 'Küre içindeki parçaları bulur.', tags: ['bul', 'alan'] },
     { name: 'Box Overlap Actors', type: 'function', description: 'Kutu içindeki aktörleri bulur.', tags: ['bul', 'alan'] },
@@ -1025,25 +988,21 @@ export const nodeData = [
     { name: 'Capsule Overlap Actors', type: 'function', description: 'Kapsül içindeki aktörleri bulur.', tags: ['bul', 'alan'] },
     { name: 'Capsule Overlap Components', type: 'function', description: 'Kapsül içindeki parçaları bulur.', tags: ['bul', 'alan'] },
 
-    // --- MOVEMENT EXTRA (YEŞİL) ---
     { name: 'Set Max Walk Speed', type: 'function', description: 'Yürüme hızını değiştirir.', tags: ['hız', 'yürü'], examples: ['Koşma hızı yap'] },
     { name: 'Set Jump Z Velocity', type: 'function', description: 'Zıplama gücünü değiştirir.', tags: ['zıpla', 'güç'], examples: ['Yükseğe zıpla'] },
     { name: 'Add Movement Input (Scale)', type: 'function', description: 'Yürüme komutu verir.', tags: ['yürü', 'input'], examples: ['W tuşu ile ileri git', 'Gamepad kolu ile yürü'] },
     { name: 'Get Gravity Z', type: 'function', description: 'Yerçekimi gücünü alır.', tags: ['yerçekimi'], examples: ['Düşüş hızını hesapla'] },
 
-    // --- STRUCT BREAKING (LACİVERT) ---
     { name: 'Break Hit Result', type: 'function', description: 'Çarpışma detaylarını ayırır (Konum, İsim, Mesafe...).', tags: ['çarpma', 'ayır'], examples: ['Neresinden vurdum?'] },
     { name: 'Make Hit Result', type: 'function', description: 'Sanal çarpışma yaratır.', tags: ['çarpma', 'yap'], examples: ['Sahte mermi izi oluştur'] },
     { name: 'Break Key Event', type: 'function', description: 'Tuş olayını ayırır (Hangi tuş?).', tags: ['tuş', 'ayır'], examples: ['Basılan tuş "Enter" mı?'] },
 
-    // --- UTILITIES (GRİ) ---
     { name: 'Get Object Name', type: 'function', description: 'Objenin sistem ismini verir.', tags: ['isim', 'id'] },
     { name: 'Get Display Name', type: 'function', description: 'Objenin görünen ismini verir.', tags: ['isim', 'görünen'], examples: ['Eşyanın adını ekranda göster'] },
     { name: 'Print Warning', type: 'function', description: 'Sarı renkli uyarı logu yazar.', tags: ['log', 'uyarı'], examples: ['"Mermi azaldı!" uyarısı', 'Eksik component uyarısı'] },
     { name: 'Print Error', type: 'function', description: 'Kırmızı renkli hata logu yazar.', tags: ['log', 'hata'], examples: ['"Dosya bulunamadı!" hatası', 'Kritik sistem hatası'] },
     { name: 'Get Game Instance', type: 'function', description: 'Oyun yöneticisine erişir.', tags: ['yönetici', 'instance'], examples: ['Global değişkenlere ulaş'] },
 
-    // --- FINAL 30 NODES: POLISH ---
     { name: 'Bitwise AND', type: 'math', description: 'Bit düzeyinde VE işlemi.', tags: ['bit', 've'], examples: ['Maskeleme işlemi yap (Flags)'] },
     { name: 'Bitwise OR', type: 'math', description: 'Bit düzeyinde VEYA işlemi.', tags: ['bit', 'veya'], examples: ['Yeni bir bayrak (Flag) ekle'] },
     { name: 'Bitwise XOR', type: 'math', description: 'Bit düzeyinde XOR işlemi.', tags: ['bit', 'xor'], examples: ['Değeri tersine çevir (Toggle)'] },
@@ -1073,5 +1032,4 @@ export const nodeData = [
     { name: 'Get Current FPS', type: 'function', description: 'FPS değerini alır.', tags: ['fps', 'performans'], examples: ['Ayarlar menüsünde FPS göster'] },
     { name: 'Set Target FPS', type: 'function', description: 'FPS limitini ayarlar.', tags: ['fps', 'limit'], examples: ['60 FPS\'e sabitle'] },
 
-    // --- END OF MASSIVE EXPANSION ---
 ];
