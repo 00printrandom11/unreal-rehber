@@ -56,7 +56,7 @@ Unreal Engine 5 ile oyun gelistirmeyi ogrenmeniz icin hazirlanmis kapsamli Turkc
 
 ```bash
 # 1. Repoyu klonlayin
-git clone https://github.com/KULLANICI_ADI/unreal-rehber.git
+git clone https://github.com/00printrandom11/unreal-rehber
 
 # 2. Proje klasorune girin
 cd unreal-rehber
@@ -178,4 +178,5 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
+
 
