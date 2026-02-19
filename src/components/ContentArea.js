@@ -40,50 +40,113 @@ export class ContentArea {
     }
 
     renderActors() {
-        const actorContainer = document.createElement('div');
-        actorContainer.className = 'actor-container';
+        const container = document.createElement('div');
+        container.className = 'actor-container';
 
-        const treeView = document.createElement('div');
-        treeView.className = 'tree-view';
-        this.buildActorTree(actorData, treeView);
+        const sidebar = document.createElement('div');
+        sidebar.className = 'actor-tree-sidebar';
 
-        const detailView = document.createElement('div');
-        detailView.className = 'actor-detail';
-        detailView.id = 'actor-detail-panel';
-        detailView.innerHTML = `
-            <h2>Actor Seç</h2>
-            <p>Detaylarını görmek için soldaki listeden bir aktör seçin.</p>
+        const searchBox = document.createElement('div');
+        searchBox.className = 'actor-search-box';
+        searchBox.innerHTML = `
+            <div class="actor-search-wrapper">
+                <span class="actor-search-icon">🔍</span>
+                <input type="text" id="actor-search-input" class="actor-search-input" placeholder="Actor ara..." autocomplete="off" />
+            </div>
+        `;
+        sidebar.appendChild(searchBox);
+
+        const treeContainer = document.createElement('div');
+        treeContainer.className = 'actor-tree-container';
+        treeContainer.id = 'actor-tree-container';
+        this.buildActorTree(actorData, treeContainer, 0);
+        sidebar.appendChild(treeContainer);
+
+        const detail = document.createElement('div');
+        detail.className = 'actor-detail-panel';
+        detail.id = 'actor-detail-panel';
+
+        const countNodes = (nodes) => {
+            let n = nodes.length;
+            nodes.forEach(node => {
+                if (node.children && node.children.length > 0) n += countNodes(node.children);
+            });
+            return n;
+        };
+        const totalActors = countNodes(actorData);
+
+        detail.innerHTML = `
+            <div class="actor-welcome">
+                <h2>🎭 Actor Hiyerarşisi</h2>
+                <p>Soldaki arama kutusunu kullanarak veya ağaçtan bir aktör seçerek detayları görüntüleyin.</p>
+                <div class="actor-stats">
+                    <div class="actor-stat-item">
+                        <span class="actor-stat-number">${actorData.length}</span>
+                        <span class="actor-stat-label">Ana sınıf</span>
+                    </div>
+                    <div class="actor-stat-item">
+                        <span class="actor-stat-number">${totalActors}</span>
+                        <span class="actor-stat-label">Toplam aktör</span>
+                    </div>
+                </div>
+            </div>
         `;
 
-        actorContainer.appendChild(treeView);
-        actorContainer.appendChild(detailView);
-        this.container.appendChild(actorContainer);
+        container.appendChild(sidebar);
+        container.appendChild(detail);
+        this.container.appendChild(container);
+
+        this._initActorSearch();
     }
 
-    buildActorTree(nodes, parentElement) {
+    buildActorTree(nodes, parent, depth) {
+        if (!nodes || !nodes.length) return;
         nodes.forEach(node => {
-            const wrapper = document.createElement('div');
-            wrapper.className = 'tree-item';
+            const nodeWrap = document.createElement('div');
+            nodeWrap.className = 'actor-tree-node';
+            nodeWrap.dataset.actorName = (node.name || '').toLowerCase();
+            nodeWrap.style.setProperty('--node-color', node.color || 'var(--accent-color)');
+
+            const hasChildren = node.children && node.children.length > 0;
 
             const btn = document.createElement('button');
-            btn.className = 'tree-btn';
-            btn.textContent = node.name;
-            btn.onclick = () => {
-                document.querySelectorAll('.tree-btn').forEach(b => b.classList.remove('active'));
+            btn.className = 'actor-tree-item' + (hasChildren ? '' : ' no-children');
+            btn.type = 'button';
+            btn.innerHTML = `
+                ${hasChildren ? '<span class="actor-tree-arrow" aria-hidden="true">▶</span>' : '<span class="actor-tree-arrow placeholder"></span>'}
+                <span class="actor-tree-item-icon">${node.icon || '🎭'}</span>
+                <span class="actor-tree-item-name">${node.name || ''}</span>
+                ${(node.badge && node.badge.trim()) ? `<span class="actor-tree-item-badge">${node.badge}</span>` : ''}
+            `;
+
+            const onSelect = () => {
+                document.querySelectorAll('.actor-tree-item').forEach(b => b.classList.remove('active'));
                 btn.classList.add('active');
                 this.showActorDetail(node);
             };
 
-            wrapper.appendChild(btn);
+            const arrow = btn.querySelector('.actor-tree-arrow');
+            if (hasChildren && arrow) {
+                arrow.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    nodeWrap.classList.toggle('collapsed');
+                });
+            }
+            btn.addEventListener('click', (e) => {
+                if (e.target.closest('.actor-tree-arrow')) return;
+                onSelect();
+            });
 
-            if (node.children && node.children.length > 0) {
-                const childrenContainer = document.createElement('div');
-                childrenContainer.className = 'tree-children';
-                this.buildActorTree(node.children, childrenContainer);
-                wrapper.appendChild(childrenContainer);
+            nodeWrap.appendChild(btn);
+
+            if (hasChildren) {
+                const childrenEl = document.createElement('div');
+                childrenEl.className = 'actor-tree-children';
+                this.buildActorTree(node.children, childrenEl, depth + 1);
+                nodeWrap.appendChild(childrenEl);
             }
 
-            parentElement.appendChild(wrapper);
+            parent.appendChild(nodeWrap);
         });
     }
 
@@ -93,20 +156,133 @@ export class ContentArea {
         panel.offsetHeight;
         panel.style.animation = 'fadeIn 0.3s ease';
 
+        const desc = (node.description || '').replace(/\n/g, '<br>');
+
+        let propsHtml = '';
+        if (node.properties && node.properties.length > 0) {
+            propsHtml = `<div class="actor-section">
+                <h3 class="actor-section-title">📋 Properties</h3>
+                <div class="actor-props-grid">
+                    ${node.properties.map(p => `
+                        <div class="actor-prop-item">
+                            <span class="actor-prop-type">${(p.type || '').trim() || '—'}</span>
+                            <span class="actor-prop-name">${p.name || ''}</span>
+                            <span class="actor-prop-desc">${p.desc || ''}</span>
+                        </div>
+                    `).join('')}
+                </div>
+            </div>`;
+        }
+
+        let eventsHtml = '';
+        if (node.events && node.events.length > 0) {
+            eventsHtml = `<div class="actor-section">
+                <h3 class="actor-section-title">⚡ Events</h3>
+                <div class="actor-events-list">
+                    ${node.events.map(e => `
+                        <div class="actor-event-item">
+                            <span class="actor-event-name">${e.name || ''}</span>
+                            <span class="actor-event-desc">${e.desc || ''}</span>
+                        </div>
+                    `).join('')}
+                </div>
+            </div>`;
+        }
+
+        let methodsHtml = '';
+        if (node.methods && node.methods.length > 0) {
+            methodsHtml = `<div class="actor-section">
+                <h3 class="actor-section-title">🔧 Methods</h3>
+                <div class="actor-methods-list">
+                    ${node.methods.map(m => `
+                        <div class="actor-method-item">
+                            <span class="actor-method-name">${m.name || ''}</span>
+                            <span class="actor-method-desc">${m.desc || ''}</span>
+                        </div>
+                    `).join('')}
+                </div>
+            </div>`;
+        }
+
+        let bpNotesHtml = '';
+        if (node.blueprintNotes) {
+            bpNotesHtml = `<div class="actor-section actor-bp-notes">
+                <h3 class="actor-section-title">🔷 Blueprint Notları</h3>
+                <p>${(node.blueprintNotes || '').replace(/\n/g, '<br>')}</p>
+            </div>`;
+        }
+
+        let examplesHtml = '';
+        if (node.examples && node.examples.length > 0) {
+            examplesHtml = `<div class="actor-section actor-examples-section">
+                <h3 class="actor-section-title">💡 Örnek Kullanımlar</h3>
+                <ul class="actor-examples-list">
+                    ${node.examples.map(ex => `<li>${ex}</li>`).join('')}
+                </ul>
+            </div>`;
+        }
+
         panel.innerHTML = `
-            <h2>${node.name}</h2>
-            <div style="margin-top: 20px;">
-                <p>${node.description}</p>
-                ${node.examples && node.examples.length > 0 ? `
-                    <div class="actor-examples" style="margin-top: 20px; background: rgba(0,0,0,0.2); padding: 15px; border-radius: 8px; border-left: 3px solid #00aeef;">
-                        <small style="display:block; color:var(--text-secondary); margin-bottom:10px; font-weight:bold; letter-spacing:1px;">ÖRNEK KULLANIMLAR:</small>
-                        <ul style="margin: 0; padding-left: 20px; color: #ddd;">
-                            ${node.examples.map(ex => `<li style="margin-bottom: 5px;">${ex}</li>`).join('')}
-                        </ul>
-                    </div>
-                ` : ''}
+            <div class="actor-detail-header" style="--actor-color: ${node.color || '#4a9eff'}">
+                <div class="actor-detail-icon">${node.icon || '🎭'}</div>
+                <div class="actor-detail-title-area">
+                    <h2>${node.name || ''}</h2>
+                    <span class="actor-detail-badge">${node.badge || ''}</span>
+                </div>
             </div>
+            <div class="actor-detail-desc">${desc}</div>
+            ${propsHtml}
+            ${eventsHtml}
+            ${methodsHtml}
+            ${bpNotesHtml}
+            ${examplesHtml}
         `;
+    }
+
+    _initActorSearch() {
+        const input = document.getElementById('actor-search-input');
+        const treeContainer = document.getElementById('actor-tree-container');
+        if (!input || !treeContainer) return;
+
+        const normalize = (str) => (str || '').toLowerCase()
+            .replace(/ı/g, 'i').replace(/ğ/g, 'g').replace(/ü/g, 'u')
+            .replace(/ş/g, 's').replace(/ö/g, 'o').replace(/ç/g, 'c');
+
+        const setVisible = (el, visible) => {
+            el.classList.toggle('visible', visible);
+            el.classList.toggle('hidden', !visible);
+        };
+
+        const filterTree = (query) => {
+            const q = normalize(query);
+            const nodes = Array.from(treeContainer.querySelectorAll('.actor-tree-node'));
+            const getDepth = (n) => {
+                let d = 0;
+                let p = n.parentElement;
+                while (p && p !== treeContainer) {
+                    if (p.classList.contains('actor-tree-node')) d++;
+                    p = p.parentElement;
+                }
+                return d;
+            };
+            nodes.sort((a, b) => getDepth(b) - getDepth(a));
+            nodes.forEach(node => {
+                const name = normalize(node.dataset.actorName || '');
+                const selfMatch = !q || name.includes(q);
+                const childrenEl = node.querySelector('.actor-tree-children');
+                const childNodes = childrenEl ? Array.from(childrenEl.children).filter(c => c.classList.contains('actor-tree-node')) : [];
+                const childMatch = childNodes.length > 0 && childNodes.some(c => c.classList.contains('visible'));
+                setVisible(node, selfMatch || childMatch);
+                if (q && (selfMatch || childMatch)) {
+                    node.classList.remove('collapsed');
+                }
+            });
+        };
+
+        input.addEventListener('input', () => filterTree(input.value.trim()));
+        input.addEventListener('focus', () => filterTree(input.value.trim()));
+
+        filterTree('');
     }
 
     renderVariables() {
