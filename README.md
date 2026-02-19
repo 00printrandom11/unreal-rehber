@@ -2,7 +2,7 @@
 
 Unreal Engine 5 ile oyun gelistirmeyi ogrenmeniz icin hazirlanmis kapsamli Turkce rehber uygulamasi. Tarayicinizda calisan bu lokal panel; Blueprint sema diyagramlari, adim adim rehberler, actor hiyerarsisi, degisken/node referanslari ve kisayollari tek bir arayuzde sunar.
 
-Baslangic seviyesinden ileri seviyeye kadar **486 rehber** icerir.
+**88 kategori**, **486 rehber**, **1423 adim** icerir. Baslangic seviyesinden ileri seviyeye kadar tum konulari kapsar.
 
 ![Vite](https://img.shields.io/badge/Vite-6.0-646CFF?logo=vite&logoColor=white)
 ![Vanilla JS](https://img.shields.io/badge/Vanilla-JS-F7DF1E?logo=javascript&logoColor=black)
@@ -26,7 +26,7 @@ Baslangic seviyesinden ileri seviyeye kadar **486 rehber** icerir.
 
 | Ozellik | Aciklama |
 |---------|----------|
-| **486 Rehber** | Baslangic (238), Orta (144), Ileri (104) seviye. 70+ kategori. |
+| **486 Rehber** | Baslangic (238), Orta (144), Ileri (104) seviye. 88 kategori, 1423 adim. |
 | **Blueprint Semalari** | Her rehberde renkli ASCII akis diyagramlari, degisken/event listeleri. |
 | **Arama & Filtreleme** | Rehberler arasinda anlik arama, zorluk seviyesine gore filtreleme. |
 | **Actor Hiyerarsisi** | 52 node. Renkli kartlar, Properties, Events, Methods, Blueprint notlari. |
@@ -93,6 +93,12 @@ npm run preview
 ---
 
 ## Icerik Dagilimi
+
+| | Sayi |
+|--|:----:|
+| Kategori | 88 |
+| Rehber | 486 |
+| Adim | 1423 |
 
 | Seviye | Rehber Sayisi | Aciklama |
 |--------|:------------:|----------|
