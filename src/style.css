@@ -365,6 +365,22 @@ body {
   font-weight: 700;
 }
 
+.es-developer-signature {
+  position: absolute;
+  bottom: 16px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 0.78rem;
+  letter-spacing: 0.7px;
+  color: rgba(232, 234, 240, 0.7);
+  padding: 6px 14px;
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(12, 16, 34, 0.45);
+  backdrop-filter: blur(6px);
+  z-index: 3;
+}
+
 /* ═══════════════════════════════════════════
    SIDEBAR
    ═══════════════════════════════════════════ */
@@ -443,6 +459,26 @@ body {
   padding: 40px;
   overflow-y: auto;
   background: linear-gradient(180deg, #0a0e1a 0%, #080b14 100%);
+}
+
+.app-engine-mode .sidebar {
+  background-color: rgba(15, 19, 32, 0.9);
+  backdrop-filter: blur(4px);
+}
+
+.app-engine-mode .content-area {
+  background: linear-gradient(180deg, rgba(10, 14, 26, 0.82) 0%, rgba(8, 11, 20, 0.84) 100%);
+}
+
+/* Metin alanlari opak kaldigi icin yildizlar yazilarin ustune binmez. */
+.app-engine-mode .guide-detail,
+.app-engine-mode .actor-detail-panel,
+.app-engine-mode .variable-card,
+.app-engine-mode .node-card,
+.app-engine-mode .shortcut-card,
+.app-engine-mode .guide-category-header,
+.app-engine-mode .actor-tree-item {
+  background-color: var(--bg-panel);
 }
 
 .welcome-message {
