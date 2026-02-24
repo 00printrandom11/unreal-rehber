@@ -13,12 +13,15 @@ class BackgroundFX {
         this.ctx = canvas.getContext('2d');
         this.stars = [];
         this.mouse = { x: -9999, y: -9999 };
-        this.lightnings = [];
-        this.lightningTimer = 0;
-        this.lightningFlash = 0;
+        this.mode = 'select';
+        this.activeLightning = null;
+        this.lightningIntervalMs = 5000;
+        this.lightningDurationMs = 500;
+        this.nextLightningAt = performance.now() + 1200;
         this.connectionRadius = 180;
-        this.starCount = 160;
+        this.starCount = 210;
         this.running = true;
+        this.lastFrameAt = performance.now();
         this.resize();
         this.createStars();
         this.bindEvents();
@@ -36,11 +39,11 @@ class BackgroundFX {
             this.stars.push({
                 x: Math.random() * this.w,
                 y: Math.random() * this.h,
-                vx: (Math.random() - 0.5) * 0.3,
-                vy: (Math.random() - 0.5) * 0.3,
-                r: Math.random() * 1.8 + 0.5,
+                vx: (Math.random() - 0.5) * 0.55,
+                vy: (Math.random() - 0.5) * 0.55,
+                r: Math.random() * 2.1 + 0.8,
                 pulse: Math.random() * Math.PI * 2,
-                pulseSpeed: Math.random() * 0.02 + 0.005
+                pulseSpeed: Math.random() * 0.03 + 0.009
             });
         }
     }
@@ -60,98 +63,192 @@ class BackgroundFX {
         });
     }
 
-    generateLightning(x, y, angle, depth, maxDepth) {
-        if (depth > maxDepth) return;
-        const segments = 6 + Math.floor(Math.random() * 8);
-        const segLen = 20 + Math.random() * 40;
-        let cx = x, cy = y;
-        const points = [{ x: cx, y: cy }];
+    setMode(mode) {
+        this.mode = mode;
+        if (mode !== 'select') {
+            this.activeLightning = null;
+        } else {
+            this.nextLightningAt = performance.now() + 800;
+        }
+    }
+
+    createLightningPath(x, y, angle) {
+        const segments = 14 + Math.floor(Math.random() * 8);
+        const segLen = 28 + Math.random() * 28;
+        let cx = x;
+        let cy = y;
+        const mainPoints = [{ x: cx, y: cy }];
+
         for (let i = 0; i < segments; i++) {
-            const jitter = (Math.random() - 0.5) * 1.2;
+            const jitter = (Math.random() - 0.5) * 0.9;
             cx += Math.cos(angle + jitter) * segLen;
             cy += Math.sin(angle + jitter) * segLen;
-            points.push({ x: cx, y: cy });
-            if (Math.random() < 0.3 && depth < maxDepth) {
-                const branchAngle = angle + (Math.random() - 0.5) * 1.5;
-                this.generateLightning(cx, cy, branchAngle, depth + 1, maxDepth);
+            mainPoints.push({ x: cx, y: cy });
+        }
+
+        const branches = [];
+        const branchCount = 2 + Math.floor(Math.random() * 3);
+        for (let i = 0; i < branchCount; i++) {
+            const startIndex = 2 + Math.floor(Math.random() * Math.max(2, mainPoints.length - 4));
+            const start = mainPoints[startIndex];
+            const baseAngle =
+                Math.atan2(mainPoints[startIndex + 1].y - start.y, mainPoints[startIndex + 1].x - start.x);
+            const branchAngle = baseAngle + (Math.random() < 0.5 ? -1 : 1) * (0.45 + Math.random() * 0.7);
+            const branchSegments = 4 + Math.floor(Math.random() * 4);
+            const branchStep = segLen * (0.45 + Math.random() * 0.35);
+            let bx = start.x;
+            let by = start.y;
+            const branchPoints = [{ x: bx, y: by }];
+
+            for (let j = 0; j < branchSegments; j++) {
+                const jitter = (Math.random() - 0.5) * 0.6;
+                bx += Math.cos(branchAngle + jitter) * branchStep;
+                by += Math.sin(branchAngle + jitter) * branchStep;
+                branchPoints.push({ x: bx, y: by });
             }
+
+            branches.push({
+                startProgress: startIndex / (mainPoints.length - 1),
+                points: branchPoints
+            });
         }
-        this.lightnings.push({
-            points,
-            alpha: 0.7 + Math.random() * 0.3,
-            width: Math.max(1, 3 - depth),
-            life: 1.0,
-            decay: 0.03 + Math.random() * 0.04
-        });
+
+        return { mainPoints, branches };
     }
 
-    spawnLightning() {
+    spawnLightning(now) {
         const side = Math.random();
-        let sx, sy, angle;
-        if (side < 0.5) {
+        let sx;
+        let sy;
+        let angle;
+
+        if (side < 0.6) {
             sx = Math.random() * this.w;
-            sy = -10;
-            angle = Math.PI / 2 + (Math.random() - 0.5) * 0.8;
+            sy = -20;
+            angle = Math.PI / 2 + (Math.random() - 0.5) * 0.55;
         } else {
-            sx = Math.random() < 0.5 ? -10 : this.w + 10;
-            sy = Math.random() * this.h * 0.4;
-            angle = sx < 0 ? 0.3 : Math.PI - 0.3;
+            sx = Math.random() < 0.5 ? -20 : this.w + 20;
+            sy = Math.random() * this.h * 0.35;
+            angle = sx < 0 ? 0.2 : Math.PI - 0.2;
         }
-        this.generateLightning(sx, sy, angle, 0, 2 + Math.floor(Math.random() * 2));
-        this.lightningFlash = 0.15 + Math.random() * 0.1;
+
+        const boltPath = this.createLightningPath(sx, sy, angle);
+        this.activeLightning = {
+            mainPoints: boltPath.mainPoints,
+            branches: boltPath.branches,
+            alpha: 0.7 + Math.random() * 0.3,
+            width: 2.2 + Math.random() * 1.6,
+            startAt: now
+        };
     }
 
-    update() {
+    update(now) {
+        const delta = Math.min(2.5, (now - this.lastFrameAt) / 16.67);
+        this.lastFrameAt = now;
+
         for (const s of this.stars) {
-            s.x += s.vx;
-            s.y += s.vy;
-            s.pulse += s.pulseSpeed;
+            s.x += s.vx * delta;
+            s.y += s.vy * delta;
+            s.pulse += s.pulseSpeed * delta;
             if (s.x < -10) s.x = this.w + 10;
             if (s.x > this.w + 10) s.x = -10;
             if (s.y < -10) s.y = this.h + 10;
             if (s.y > this.h + 10) s.y = -10;
         }
 
-        this.lightningTimer++;
-        if (this.lightningTimer > 200 + Math.random() * 400) {
-            this.spawnLightning();
-            this.lightningTimer = 0;
+        if (this.mode === 'select') {
+            if (!this.activeLightning && now >= this.nextLightningAt) {
+                this.spawnLightning(now);
+                this.nextLightningAt = now + this.lightningIntervalMs;
+            }
+
+            if (this.activeLightning) {
+                const elapsed = now - this.activeLightning.startAt;
+                if (elapsed > this.lightningDurationMs) {
+                    this.activeLightning = null;
+                }
+            }
+        } else {
+            this.activeLightning = null;
+        }
+    }
+
+    drawPartialBolt(points, progress, width, alpha) {
+        if (!points || points.length < 2 || progress <= 0) return;
+        const ctx = this.ctx;
+        const segmentLengths = [];
+        let totalLength = 0;
+
+        for (let i = 1; i < points.length; i++) {
+            const dx = points[i].x - points[i - 1].x;
+            const dy = points[i].y - points[i - 1].y;
+            const len = Math.sqrt(dx * dx + dy * dy);
+            segmentLengths.push(len);
+            totalLength += len;
         }
 
-        for (let i = this.lightnings.length - 1; i >= 0; i--) {
-            this.lightnings[i].life -= this.lightnings[i].decay;
-            if (this.lightnings[i].life <= 0) this.lightnings.splice(i, 1);
+        const targetLength = totalLength * Math.min(1, progress);
+        let drawn = 0;
+
+        ctx.beginPath();
+        ctx.moveTo(points[0].x, points[0].y);
+        for (let i = 1; i < points.length; i++) {
+            const segLen = segmentLengths[i - 1];
+            if (drawn + segLen <= targetLength) {
+                ctx.lineTo(points[i].x, points[i].y);
+                drawn += segLen;
+                continue;
+            }
+
+            const remain = Math.max(0, targetLength - drawn);
+            const ratio = segLen === 0 ? 0 : remain / segLen;
+            const px = points[i - 1].x + (points[i].x - points[i - 1].x) * ratio;
+            const py = points[i - 1].y + (points[i].y - points[i - 1].y) * ratio;
+            ctx.lineTo(px, py);
+            break;
         }
 
-        if (this.lightningFlash > 0) this.lightningFlash -= 0.008;
+        ctx.strokeStyle = `rgba(160, 180, 255, ${alpha * 0.45})`;
+        ctx.lineWidth = width + 4;
+        ctx.stroke();
+        ctx.strokeStyle = `rgba(210, 225, 255, ${alpha})`;
+        ctx.lineWidth = width;
+        ctx.stroke();
+        ctx.strokeStyle = `rgba(255, 255, 255, ${alpha * 0.8})`;
+        ctx.lineWidth = Math.max(0.8, width - 1.1);
+        ctx.stroke();
     }
 
     draw() {
         const ctx = this.ctx;
         ctx.clearRect(0, 0, this.w, this.h);
 
-        if (this.lightningFlash > 0) {
-            ctx.fillStyle = `rgba(180, 200, 255, ${this.lightningFlash * 0.08})`;
-            ctx.fillRect(0, 0, this.w, this.h);
-        }
-
-        for (const bolt of this.lightnings) {
-            if (bolt.points.length < 2) continue;
-            ctx.beginPath();
-            ctx.moveTo(bolt.points[0].x, bolt.points[0].y);
-            for (let i = 1; i < bolt.points.length; i++) {
-                ctx.lineTo(bolt.points[i].x, bolt.points[i].y);
+        if (this.mode === 'select' && this.activeLightning) {
+            const elapsed = performance.now() - this.activeLightning.startAt;
+            const progress = Math.max(0, Math.min(1, elapsed / this.lightningDurationMs));
+            const flash = Math.sin(progress * Math.PI) * 0.08;
+            if (flash > 0) {
+                ctx.fillStyle = `rgba(180, 200, 255, ${flash})`;
+                ctx.fillRect(0, 0, this.w, this.h);
             }
-            const a = bolt.life * bolt.alpha;
-            ctx.strokeStyle = `rgba(160, 180, 255, ${a * 0.6})`;
-            ctx.lineWidth = bolt.width + 4;
-            ctx.stroke();
-            ctx.strokeStyle = `rgba(200, 220, 255, ${a})`;
-            ctx.lineWidth = bolt.width;
-            ctx.stroke();
-            ctx.strokeStyle = `rgba(255, 255, 255, ${a * 0.8})`;
-            ctx.lineWidth = Math.max(0.5, bolt.width - 1);
-            ctx.stroke();
+            this.drawPartialBolt(
+                this.activeLightning.mainPoints,
+                progress,
+                this.activeLightning.width,
+                this.activeLightning.alpha
+            );
+
+            for (const branch of this.activeLightning.branches) {
+                const delayed = (progress - branch.startProgress) / (1 - branch.startProgress);
+                const branchProgress = Math.max(0, Math.min(1, delayed));
+                if (branchProgress <= 0) continue;
+                this.drawPartialBolt(
+                    branch.points,
+                    branchProgress,
+                    Math.max(1.1, this.activeLightning.width * 0.55),
+                    this.activeLightning.alpha * 0.75
+                );
+            }
         }
 
         const mx = this.mouse.x;
@@ -159,10 +256,10 @@ class BackgroundFX {
         const cr = this.connectionRadius;
 
         for (const s of this.stars) {
-            const glow = 0.5 + Math.sin(s.pulse) * 0.3;
+            const glow = 0.62 + Math.sin(s.pulse) * 0.36;
             ctx.beginPath();
             ctx.arc(s.x, s.y, s.r * (1 + Math.sin(s.pulse) * 0.3), 0, Math.PI * 2);
-            ctx.fillStyle = `rgba(180, 200, 240, ${glow * 0.7})`;
+            ctx.fillStyle = `rgba(185, 210, 255, ${glow * 0.82})`;
             ctx.fill();
 
             const dx = s.x - mx;
@@ -193,8 +290,8 @@ class BackgroundFX {
                     ctx.beginPath();
                     ctx.moveTo(a.x, a.y);
                     ctx.lineTo(b.x, b.y);
-                    ctx.strokeStyle = `rgba(80, 120, 180, ${(1 - dist / 100) * 0.12})`;
-                    ctx.lineWidth = 0.4;
+                    ctx.strokeStyle = `rgba(95, 145, 210, ${(1 - dist / 100) * 0.16})`;
+                    ctx.lineWidth = 0.55;
                     ctx.stroke();
                 }
             }
@@ -217,7 +314,8 @@ class BackgroundFX {
 
     loop() {
         if (!this.running) return;
-        this.update();
+        const now = performance.now();
+        this.update(now);
         this.draw();
         requestAnimationFrame(() => this.loop());
     }
@@ -246,7 +344,10 @@ function showEngineSelect(app) {
 
     const canvas = document.getElementById('bg-canvas');
     if (canvas) canvas.style.display = 'block';
-    if (bgFX) bgFX.running = true;
+    if (bgFX) {
+        bgFX.running = true;
+        bgFX.setMode('select');
+    }
 
     const screen = document.createElement('div');
     screen.className = 'engine-select-screen';
@@ -315,6 +416,7 @@ function showEngineSelect(app) {
             <span>•</span>
             <span>Türkçe içerik</span>
         </div>
+        <div class="es-developer-signature">Developer: PrintRandom</div>
     `;
 
     app.appendChild(screen);
@@ -328,10 +430,12 @@ function showEngineSelect(app) {
 }
 
 function launchEngine(app, engine) {
-    const canvas = document.getElementById('bg-canvas');
-    if (canvas) canvas.style.display = 'none';
+    if (bgFX) {
+        bgFX.setMode('engine');
+    }
 
     app.innerHTML = '';
+    app.className = 'app-engine-mode';
 
     const sidebarContainer = document.createElement('div');
     sidebarContainer.id = 'sidebar-container';
