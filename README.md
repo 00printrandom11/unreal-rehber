@@ -1,10 +1,11 @@
-# Unreal Engine 5 - Turkce Rehber
+# Oyun Motoru Rehberi (Unreal + Unity)
 
-Unreal Engine 5 ile oyun gelistirmeyi ogrenmeniz icin hazirlanmis kapsamli Turkce rehber uygulamasi. Tarayicinizda calisan bu lokal panel; Blueprint sema diyagramlari, adim adim rehberler, actor hiyerarsisi, degisken/node referanslari ve kisayollari tek bir arayuzde sunar.
+Tarayici tabanli, tek panel uzerinden hem Unreal Engine 5 hem Unity egitim icerigi sunan rehber uygulamasi.
+Proje; sifirdan baslayan kullanicilarin da takip edebilecegi adim adim anlatimlari, arama ekranlarini, kisayol listelerini ve detayli konu dagilimlarini bir arada verir.
 
-**88 kategori**, **486 rehber**, **1423 adim** icerir. Baslangic seviyesinden ileri seviyeye kadar tum konulari kapsar.
+> Uygulama tamamen istemci tarafinda calisir. Sunucu tarafinda ekstra bir framework veya veritabani bagimliligi yoktur.
 
-![Vite](https://img.shields.io/badge/Vite-6.0-646CFF?logo=vite&logoColor=white)
+![Vite](https://img.shields.io/badge/Vite-6.x-646CFF?logo=vite&logoColor=white)
 ![Vanilla JS](https://img.shields.io/badge/Vanilla-JS-F7DF1E?logo=javascript&logoColor=black)
 ![License](https://img.shields.io/badge/License-MIT-green)
 
@@ -12,190 +13,203 @@ Unreal Engine 5 ile oyun gelistirmeyi ogrenmeniz icin hazirlanmis kapsamli Turkc
 
 ## Icindekiler
 
-- [Ozellikler](#ozellikler)
-- [Kurulum ve Calistirma](#kurulum-ve-calistirma)
-- [Icerik Dagilimi](#icerik-dagilimi)
+- [Genel Bakis](#genel-bakis)
+- [Icerik Kapsami](#icerik-kapsami)
+- [Kurulum](#kurulum)
+- [Kullanilan Kutuphane ve Araclar](#kullanilan-kutuphane-ve-araclar)
+- [NPM Komutlari](#npm-komutlari)
 - [Proje Yapisi](#proje-yapisi)
-- [Teknoloji](#teknoloji)
-- [Katkida Bulunma](#katkida-bulunma)
+- [GitHub Repo Icin Yayin Notlari](#github-repo-icin-yayin-notlari)
+- [Katki](#katki)
 - [Lisans](#lisans)
 
 ---
 
-## Ozellikler
+## Genel Bakis
 
-| Ozellik | Aciklama |
-|---------|----------|
-| **486 Rehber** | Baslangic (238), Orta (144), Ileri (104) seviye. 88 kategori, 1423 adim. |
-| **Blueprint Semalari** | Her rehberde renkli ASCII akis diyagramlari, degisken/event listeleri. |
-| **Arama & Filtreleme** | Rehberler arasinda anlik arama, zorluk seviyesine gore filtreleme. |
-| **Actor Hiyerarsisi** | 52 node. Renkli kartlar, Properties, Events, Methods, Blueprint notlari. |
-| **Degisken Referansi** | Boolean, Integer, Float, Vector, String, Rotator, Transform, Enum tipleri. |
-| **Node Katalogu** | 200+ Blueprint node aciklamasi ve kullanim ornekleri. |
-| **Kisayollar** | Unreal Editor klavye kisayollari listesi. |
-| **Modern Koyu Tema** | Tutarli renk paleti, CSS custom properties, premium UI. |
+Bu proje iki farkli motoru tek bir giris ekraninda birlestirir:
+
+- **Unreal Engine 5** tarafi: Blueprint odakli rehberler, actor tabanli konu akisi, node ve kisayol kaynaklari
+- **Unity** tarafi: C# odakli rehberler, component tabanli konu akisi, API arama ve kisayol kaynaklari
+
+Uygulama acilisinda motor secimi yapilir ve secilen motora gore icerik paneli yuklenir.
 
 ---
 
-## Kurulum ve Calistirma
+## Icerik Kapsami
+
+### Unreal Engine 5
+
+- **1416 rehber**
+- **120 kategori**
+- Blueprint odakli akislar (`blueprintFlow`)
+- Baslangic, orta ve ileri seviye konu dagilimi
+- Oyun mekanigi, AI, UI, multiplayer, optimizasyon, VFX, materyal, fizik, animasyon ve daha fazlasi
+
+### Unity
+
+- **1324 rehber**
+- **109 kategori**
+- C# odakli akislar (`codeFlow`)
+- Baslangic, orta ve ileri seviye konu dagilimi
+- Component sistemi, API kullanimlari, gameplay, UI, performans ve tooling basliklari
+
+### Toplam
+
+- **2740 rehber** (Unreal + Unity)
+
+---
+
+## Kurulum
 
 ### Gereksinimler
 
-- [Node.js](https://nodejs.org/) v18 veya ustu
+Kurulum icin gerekli minimum araclar:
 
-> Node.js yuklu degilse [https://nodejs.org](https://nodejs.org) adresinden indirip kurun. Kurulum sirasinda varsayilan ayarlar yeterlidir.
+- **Node.js 18+** (npm ile birlikte gelir)
 
-### Yontem 1 - Hizli Baslatma (Windows)
+Opsiyonel fakat tavsiye edilen:
 
-1. Bu repoyu indirin (Code > Download ZIP) veya `git clone` yapin.
-2. Klasorun icindeki **`start_server.bat`** dosyasina cift tiklayin.
-3. Ilk calistirmada bagimliliklar otomatik yuklenir.
-4. Tarayiciniz otomatik acilir. Acilmazsa terminalde gosterilen `http://localhost:XXXX` adresine gidin.
+- **Git** (repo klonlamak ve surum takibi icin)
 
-### Yontem 2 - Terminal ile Calistirma
+### 1) Repoyu klonla
 
 ```bash
-# 1. Repoyu klonlayin
 git clone https://github.com/KULLANICI_ADI/unreal-rehber.git
-
-# 2. Proje klasorune girin
 cd unreal-rehber
+```
 
-# 3. Bagimliliklari yukleyin (sadece ilk seferde)
+### 2) Bagimliliklari kur
+
+```bash
 npm install
+```
 
-# 4. Gelistirme sunucusunu baslatin
+### 3) Gelistirme sunucusunu calistir
+
+```bash
 npm run dev
 ```
 
-Tarayicida **http://localhost:5173** adresine gidin.
+Varsayilan adres:
 
-### Yontem 3 - Production Build (Opsiyonel)
+- `http://localhost:5173`
 
-Statik dosyalar olusturup herhangi bir web sunucusunda yayinlayabilirsiniz:
+### Windows hizli baslatma (opsiyonel)
 
-```bash
-npm run build
-npm run preview
-```
-
-`dist/` klasorundeki dosyalar herhangi bir hosting servisine yuklenebilir.
-
-### Sorun Giderme
-
-| Sorun | Cozum |
-|-------|-------|
-| `node` komutu bulunamadi | Node.js kurun ve terminali yeniden acin. |
-| `npm install` hata veriyor | Node.js v18+ yuklu oldugundan emin olun (`node -v`). |
-| Tarayici acilmiyor | Terminal ciktisindaki `http://localhost:XXXX` adresini manuel acin. |
-| Port kullanimda hatasi | Farkli port deneyin: `npx vite --port 4000` |
+Windows kullaniyorsan `start_server.bat` dosyasini cift tiklayarak da projeyi ayaga kaldirabilirsin.
+Script gerekli kontrolu yapar, eksik bagimliliklari kurar ve uygun bir portta Vite sunucusunu baslatir.
 
 ---
 
-## Icerik Dagilimi
+## Kullanilan Kutuphane ve Araclar
 
-| | Sayi |
-|--|:----:|
-| Kategori | 88 |
-| Rehber | 486 |
-| Adim | 1423 |
+Bu projede bilerek sade bir stack kullanildi:
 
-| Seviye | Rehber Sayisi | Aciklama |
-|--------|:------------:|----------|
-| Baslangic | 238 | UE5 arayuzu, Blueprint temelleri, collision, sahne yonetimi, basit mekanikler, animasyon, UI, ses |
-| Orta | 144 | Blueprint iletisim, AI, multiplayer, materyal, optimizasyon, level design, veri yapilari |
-| Ileri | 104 | C++ entegrasyonu, GAS, network replication, rendering pipeline, editor scripting, VR/XR |
-| **Toplam** | **486** | |
+- **Vite (`vite`)**
+  - Gelistirme sunucusu
+  - Build ve preview sureci
+- **Vanilla JavaScript (ES Modules)**
+  - Framework yok
+  - Dogrudan tarayici dostu moduler yapi
+- **CSS**
+  - Arayuz tasarimi, tema yonetimi, responsive duzen
 
-### Kapsanan Konu Basliklari
+### package.json bagimlilik ozeti
 
-- Karakter hareketi, ziplama, yuzme, tirmanma
-- Silah sistemleri (mermi, yakin dovus, uzak menzil)
-- AI sistemi (Behavior Tree, Blackboard, Perception, EQS, Patrol)
-- UI/HUD (Widget, saglik bari, minimap, menu, drag-drop)
-- Envanter, crafting, ticaret, quest sistemi
-- Save/Load, checkpoint, XP/Level sistemi
-- Niagara partikul, ses, muzik, ambient sound
-- Multiplayer (Listen Server, Dedicated, RPC, Replication)
-- Materyal, aydinlatma, post-process, PBR
-- Gameplay Ability System (GAS)
-- C++ ve Blueprint entegrasyonu (UCLASS, UFUNCTION, UPROPERTY)
-- World Partition, Level Streaming, Sub-Level
-- Nanite, Lumen, Virtual Texture optimizasyonu
-- Procedural generation, Marching Cubes, PCG Framework
-- Network (lag compensation, bandwidth, net dormancy)
-- VR/XR (teleportation, grab interaction, motion controller)
-- Editor Scripting, Python, Blutility
-- Platform Deploy (Windows, Android, iOS, Steam, Epic Store)
+```json
+{
+  "devDependencies": {
+    "vite": "^6.0.0"
+  }
+}
+```
+
+Yani kurulum tarafinda ekstra React/Vue/Angular vb. bagimliliklar yok; `npm install` yeterli.
+
+---
+
+## NPM Komutlari
+
+- `npm run dev`  
+  Gelistirme sunucusunu baslatir.
+
+- `npm run build`  
+  Uretim ciktilarini `dist/` klasorune alir.
+
+- `npm run preview`  
+  Build alinmis dosyalari lokalde test etmek icin sunar.
 
 ---
 
 ## Proje Yapisi
 
-```
+```text
 unreal-rehber/
-├── index.html               # Ana HTML sayfasi
-├── package.json             # Node.js bagimliliklari
-├── vite.config.js           # Vite yapilandirmasi
-├── start_server.bat         # Windows hizli baslatma scripti
-├── .gitignore               # Git ignore kurallari
-├── README.md                # Bu dosya
+├── index.html
+├── package.json
+├── package-lock.json
+├── vite.config.js
+├── start_server.bat
+├── README.md
 └── src/
-    ├── main.js              # Uygulama giris noktasi
-    ├── style.css            # Tum stiller (28 KB)
-    ├── data.js              # Actor (52 node), degisken, node, kisayol verileri (164 KB)
-    ├── guideData.js         # 486 rehber + blueprint semalari (1.2 MB)
+    ├── main.js
+    ├── style.css
+    ├── guideData.js
+    ├── unityGuideData.js
+    ├── data.js
+    ├── unityData.js
     └── components/
-        ├── Sidebar.js       # Sol navigasyon paneli
-        └── ContentArea.js   # Icerik render motoru (31 KB)
+        ├── Sidebar.js
+        ├── ContentArea.js
+        └── UnityContentArea.js
 ```
 
-> `node_modules/` ve `dist/` klasorleri `.gitignore` ile haric tutulmustur. `npm install` komutu ile otomatik olusturulur.
+---
+
+## GitHub Repo Icin Yayin Notlari
+
+Repoyu GitHub'a yuklerken asagidaki dosya/klasorleri repoya dahil etme:
+
+- `node_modules/`
+- `dist/` (sadece build artefakti tutmak istemiyorsan)
+
+Bu iki klasor zaten `.gitignore` tarafindan disarida tutuluyor.
+
+### Onerilen ilk kurulum akisi (yeni cloner icin)
+
+```bash
+npm install
+npm run dev
+```
+
+### Uretim dagitimi
+
+```bash
+npm run build
+```
+
+Olusan `dist/` klasoru Netlify, Vercel, GitHub Pages veya herhangi bir statik hosting servisine yuklenebilir.
 
 ---
 
-## Teknoloji
+## Katki
 
-| Arac | Aciklama |
-|------|----------|
-| [Vite](https://vitejs.dev/) | Hizli gelistirme sunucusu ve build araci |
-| Vanilla JavaScript | ES Modules, herhangi bir framework kullanilmadan |
-| CSS | Custom properties (degiskenler), Flexbox, Grid |
+Katki gondermek icin standart git akisinin takip edilmesi yeterli:
 
----
+1. Fork al
+2. Yeni branch ac (`feature/...`)
+3. Degisikliklerini commit et
+4. Branch'i push et
+5. Pull Request olustur
 
-## Katkida Bulunma
+Rehber verisi uzerinde calisirken mevcut obje semasini koruman onemli:
 
-1. Repoyu fork edin
-2. Feature branch olusturun (`git checkout -b yeni-ozellik`)
-3. Degisikliklerinizi commit edin (`git commit -m "Yeni rehber eklendi"`)
-4. Push edin (`git push origin yeni-ozellik`)
-5. Pull Request acin
-
-Yeni rehber eklemek icin `src/guideData.js` dosyasina, mevcut format ile uyumlu yeni bir obje ekleyin. Her rehberde `id`, `title`, `difficulty`, `description`, `steps`, `blueprintFlow`, `tips`, `warnings` alanlari olmalidir.
+- Unreal icerikleri: `src/guideData.js`
+- Unity icerikleri: `src/unityGuideData.js`
 
 ---
 
 ## Lisans
 
 MIT License
-
-Copyright (c) 2025
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.
